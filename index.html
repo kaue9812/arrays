@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Lista de Frutas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #fff;
+            text-align: center;
+            padding-bottom: 100px;
+        }
+
+        h1 {
+            padding: 20px;
+            background-color: #111;
+            font-size: 2em;
+        }
+
+        .container {
+            margin: 30px auto;
+            max-width: 500px;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .btn {
+            padding: 12px 18px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            background-color: #fff;
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #ddd;
+            transform: scale(1.05);
+        }
+
+        ul {
+            list-style-type: none;
+            margin-top: 20px;
+            padding: 0;
+        }
+
+        li {
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 8px auto;
+            padding: 12px;
+            border-radius: 6px;
+            width: 80%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li button {
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        li button:hover {
+            background-color: #ff1a1a;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background-color: #111;
+            color: #aaa;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Lista de Frutas</h1>
+
+    <div class="container">
+        <input type="text" id="novaFruta" placeholder="Digite uma fruta" />
+        <div>
+            <button class="btn" onclick="adicionarFruta()">Adicionar</button>
+            <button class="btn" onclick="ordenarFrutas()">Ordenar</button>
+            <button class="btn" onclick="limparFrutas()">Limpar</button>
+        </div>
+        <ul id="listaFrutas"></ul>
+    </div>
+
+    <footer>&copy; 2025 Túlio Thauã Dutra</footer>
+
+    <script>
+        let frutas = [];
+
+        function atualizarLista() {
+            const lista = document.getElementById("listaFrutas");
+            lista.innerHTML = "";
+            frutas.forEach((fruta, index) => {
+                const item = document.createElement("li");
+                item.textContent = fruta;
+
+                const btn = document.createElement("button");
+                btn.textContent = "X";
+                btn.onclick = () => removerFruta(index);
+
+                item.appendChild(btn);
+                lista.appendChild(item);
+            });
+        }
+
+        function adicionarFruta() {
+            const input = document.getElementById("novaFruta");
+            const valor = input.value.trim();
+            if (valor !== "") {
+                frutas.push(valor);
+                input.value = "";
+                atualizarLista();
+            }
+        }
+
+        function removerFruta(index) {
+            frutas.splice(index, 1);
+            atualizarLista();
+        }
+
+        function ordenarFrutas() {
+            frutas.sort();
+            atualizarLista();
+        }
+
+        function limparFrutas() {
+            frutas = [];
+            atualizarLista();
+        }
+    </script>
+</body>
+</html>
